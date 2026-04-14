@@ -2,7 +2,7 @@
 
 A FastAPI-based web service that predicts gender based on first names using the [Genderize.io](https://genderize.io) API. The service provides confidence scoring and detailed analytics for gender predictions.
 
-Here is the link to the live repo: https://gender-classifier-production-0c78.up.railway.app/docs
+Here is the link to the live repo: https://gender-classifier-production-0c78.up.railway.app
 
 ## Features
 
