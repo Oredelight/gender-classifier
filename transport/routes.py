@@ -1,3 +1,5 @@
+from typing import Optional
+
 from fastapi import APIRouter, HTTPException, Query
 from fastapi.responses import JSONResponse
 import httpx
@@ -9,11 +11,12 @@ router = APIRouter()
 GENDERIZE_URL = "https://api.genderize.io"
 
 @router.get("/api/classify")
-async def classify_name(name: str = Query(...)):
+async def classify_name(name: Optional[str]= None):
+    print(f"Received request to classify name: {isinstance(name, str)}")
     if not name or name.strip() == "":
-        raise HTTPException(status_code=400, detail={"status": "error", "message": "Name query parameter is required"})
-    if not isinstance(name, str):
-        raise HTTPException(status_code=422, detail={"status": "error", "message": "Name must be a string"})
+        return JSONResponse(status_code=400, content={"status": "error", "message": "Name query parameter is required"})
+    if not name.isalpha():
+        return JSONResponse(status_code=422, content={"status": "error", "message": "Name must be a string"})
 
     try:
         async with httpx.AsyncClient(timeout=5.0) as client:
